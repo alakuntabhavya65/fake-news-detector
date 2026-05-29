@@ -1,0 +1,141 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Live AI News Monitor</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="app-container">
+
+    <!-- =========================
+         NAVBAR
+    ========================== -->
+
+    <header class="topbar">
+
+        <div class="brand-area">
+
+            <div class="logo">
+                📰
+            </div>
+
+            <div>
+
+                <h1 class="brand">
+                    Live AI News Monitor
+                </h1>
+
+                <p class="tagline">
+                    Real-time AI-powered news verification
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="user-area">
+
+            <a href="/" class="btn outline">
+                Home
+            </a>
+
+            <a href="/dashboard" class="btn small">
+                Dashboard
+            </a>
+
+        </div>
+
+    </header>
+
+    <!-- =========================
+         HERO
+    ========================== -->
+
+    <section class="hero-simple">
+
+        <h2>
+            Real-Time News Intelligence
+        </h2>
+
+        <p>
+            AI-powered monitoring system analyzing live
+            headlines for misinformation, fake news,
+            and suspicious content patterns.
+        </p>
+
+    </section>
+
+    <!-- =========================
+         NEWS GRID
+    ========================== -->
+
+    <div class="news-grid">
+
+        {% for article in articles %}
+
+        <div class="card news-card">
+
+            <div class="news-top">
+
+                <div class="news-tag">
+
+                    {{ article.prediction }}
+
+                </div>
+
+                <div class="news-confidence">
+
+                    {{ article.confidence }}%
+
+                </div>
+
+            </div>
+
+            <h3 class="news-title">
+
+                {{ article.title }}
+
+            </h3>
+
+            <div class="news-source">
+
+                🏢 {{ article.source }}
+
+            </div>
+
+            <a href="{{ article.url }}"
+               target="_blank"
+               class="btn primary news-btn">
+
+                Read Full Article
+
+            </a>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
+

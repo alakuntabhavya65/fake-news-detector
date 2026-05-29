@@ -1,0 +1,152 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Detection History</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="app-container">
+
+    <!-- =========================
+         NAVBAR
+    ========================== -->
+
+    <header class="topbar">
+
+        <div class="brand-area">
+
+            <div class="logo">
+                📜
+            </div>
+
+            <div>
+
+                <h1 class="brand">
+                    Detection History
+                </h1>
+
+                <p class="tagline">
+                    Previous AI scam & fake news detections
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="user-area">
+
+            <a href="/" class="btn outline">
+                Home
+            </a>
+
+            <a href="/dashboard" class="btn small">
+                Dashboard
+            </a>
+
+        </div>
+
+    </header>
+
+    <!-- =========================
+         PAGE HEADER
+    ========================== -->
+
+    <section class="hero-simple">
+
+        <h2>
+            AI Detection Records
+        </h2>
+
+        <p>
+            Review previously analyzed scam messages,
+            fake news articles, and AI detection reports.
+        </p>
+
+    </section>
+
+    <!-- =========================
+         HISTORY LIST
+    ========================== -->
+
+    <div class="history-container">
+
+        {% if records %}
+
+            {% for record in records %}
+
+            <div class="card history-card">
+
+                <div class="history-top">
+
+                    <div class="history-tag">
+
+                        {{ record.prediction }}
+
+                    </div>
+
+                    <div class="history-confidence">
+
+                        {{ record.confidence }}%
+
+                    </div>
+
+                </div>
+
+                <div class="history-meta">
+
+                    <span>
+                        🕒 {{ record.timestamp }}
+                    </span>
+
+                </div>
+
+                <div class="history-text">
+
+                    {{ record.input_text }}
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <div class="card empty-history">
+
+                <h2>
+                    No Records Found
+                </h2>
+
+                <p>
+                    Your AI detection history will appear here.
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
+

@@ -1,0 +1,217 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Image Scam Detection</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="app-container">
+
+    <!-- =========================
+         NAVBAR
+    ========================== -->
+
+    <header class="topbar">
+
+        <div class="brand-area">
+
+            <div class="logo">
+                📷
+            </div>
+
+            <div>
+
+                <h1 class="brand">
+                    Image Scam Detection
+                </h1>
+
+                <p class="tagline">
+                    OCR-powered screenshot & scam analysis
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="user-area">
+
+            <a href="/" class="btn outline">
+                Home
+            </a>
+
+            <a href="/dashboard" class="btn small">
+                Dashboard
+            </a>
+
+        </div>
+
+    </header>
+
+    <!-- =========================
+         HERO
+    ========================== -->
+
+    <section class="hero-simple">
+
+        <h2>
+            Scan Suspicious Screenshots
+        </h2>
+
+        <p>
+            Upload screenshots, scam messages, phishing chats,
+            or suspicious images for AI-powered OCR analysis.
+        </p>
+
+    </section>
+
+    <!-- =========================
+         MAIN CARD
+    ========================== -->
+
+    <section class="card upload-main-card">
+
+        <div class="section-title">
+
+            <h2>
+                Upload Screenshot
+            </h2>
+
+            <p>
+                Supported formats: JPG, PNG, JPEG
+            </p>
+
+        </div>
+
+        <form method="POST"
+              enctype="multipart/form-data">
+
+            <label class="upload-box">
+
+                <div class="upload-icon">
+                    ☁
+                </div>
+
+                <h3>
+                    Drag & Drop Image
+                </h3>
+
+                <p>
+                    or click to browse files
+                </p>
+
+                <input type="file"
+                       name="image"
+                       required
+                       hidden>
+
+            </label>
+
+            <button type="submit"
+                    class="btn primary">
+
+                Scan Screenshot
+
+            </button>
+
+        </form>
+
+        <!-- =========================
+             RESULTS
+        ========================== -->
+
+        {% if prediction %}
+
+        <div class="result-box">
+
+            <div class="result-top">
+
+                <h3 class="tag">
+                    {{ prediction }}
+                </h3>
+
+            </div>
+
+            <div class="stats">
+
+                <div class="stat-card">
+
+                    <span>
+                        Confidence
+                    </span>
+
+                    <h4>
+                        {{ confidence }}%
+                    </h4>
+
+                </div>
+
+            </div>
+
+            <div class="explanation-box">
+
+                <h4>
+                    📝 Extracted Text
+                </h4>
+
+                <div class="scan-text">
+
+                    {{ extracted_text }}
+
+                </div>
+
+            </div>
+
+            {% if reasons %}
+
+            <div class="keywords">
+
+                <h4>
+                    ⚠ Detected Keywords
+                </h4>
+
+                <div class="chips">
+
+                    {% for reason in reasons %}
+
+                    <span class="chip">
+
+                        {{ reason }}
+
+                    </span>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+        {% endif %}
+
+    </section>
+
+</div>
+
+</body>
+
+</html>
+

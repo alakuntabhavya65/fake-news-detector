@@ -1,0 +1,281 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Fake News Detector</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="app-container">
+
+    <!-- NAVBAR -->
+
+    <header class="topbar">
+
+        <div class="brand-area">
+
+            <div class="logo">🛡</div>
+
+            <div>
+                <h1 class="brand">
+                    AI Fake News Detector
+                </h1>
+
+                <p class="tagline">
+                    AI-powered misinformation analysis
+                </p>
+            </div>
+
+        </div>
+
+        <div class="user-area">
+
+            {% if current_user.is_authenticated %}
+
+                <span class="user logged">
+                    {{ current_user.username }}
+                </span>
+
+                <a href="/logout" class="btn small">
+                    Logout
+                </a>
+
+            {% else %}
+
+                <a href="/login" class="btn small">
+                    Login
+                </a>
+
+                <a href="/signup" class="btn outline">
+                    Signup
+                </a>
+
+            {% endif %}
+
+        </div>
+
+    </header>
+
+    <!-- HERO -->
+
+    <section class="hero-simple">
+
+        <h2>
+            Detect Fake News & Scam Messages Instantly
+        </h2>
+
+        <p>
+            Analyze suspicious articles, phishing messages,
+            screenshots, and misinformation using AI.
+        </p>
+
+    </section>
+
+    <!-- MAIN GRID -->
+
+    <main class="grid">
+
+        <!-- ANALYZER -->
+
+        <section class="card main-card">
+
+            <div class="section-title">
+
+                <h2>Analyze Content</h2>
+
+                <p>
+                    Paste suspicious content below
+                </p>
+
+            </div>
+
+            <form action="/predict" method="POST">
+
+                <textarea
+                    name="news"
+                    placeholder="Paste suspicious content here..."
+                    required
+                ></textarea>
+
+                <button type="submit" class="btn primary">
+                    Analyze with AI
+                </button>
+
+            </form>
+
+            {% if prediction %}
+
+            <div class="result-box">
+
+                <div class="result-top">
+
+                    <h3 class="tag">
+                        {{ prediction }}
+                    </h3>
+
+                </div>
+
+                <div class="stats">
+
+                    <div class="stat-card">
+
+                        <span>Confidence</span>
+
+                        <h4>{{ confidence }}%</h4>
+
+                    </div>
+
+                    <div class="stat-card">
+
+                        <span>Threat Score</span>
+
+                        <h4>{{ threat_score }}/100</h4>
+
+                    </div>
+
+                </div>
+
+                {% if explanation %}
+
+                <div class="explanation-box">
+
+                    <h4>AI Explanation</h4>
+
+                    <p class="explain">
+                        {{ explanation }}
+                    </p>
+
+                </div>
+
+                {% endif %}
+
+                {% if reasons %}
+
+                <div class="keywords">
+
+                    <div class="chips">
+
+                        {% for r in reasons %}
+
+                            <span class="chip">
+                                {{ r }}
+                            </span>
+
+                        {% endfor %}
+
+                    </div>
+
+                </div>
+
+                {% endif %}
+
+            </div>
+
+            {% endif %}
+
+        </section>
+
+        <!-- FEATURES -->
+
+        <section class="card side-card">
+
+            <div class="side-header">
+
+                <h3>Features</h3>
+
+            </div>
+
+            <a href="/scan-image" class="feature">
+
+                <div class="feature-icon">📷</div>
+
+                <div>
+
+                    <h4>Image Scan</h4>
+
+                    <p>OCR-based scam detection</p>
+
+                </div>
+
+            </a>
+
+            <a href="/live-news" class="feature">
+
+                <div class="feature-icon">📰</div>
+
+                <div>
+
+                    <h4>Live News</h4>
+
+                    <p>Analyze trending headlines</p>
+
+                </div>
+
+            </a>
+
+            {% if current_user.is_authenticated %}
+
+            <a href="/history" class="feature">
+
+                <div class="feature-icon">📊</div>
+
+                <div>
+
+                    <h4>History</h4>
+
+                    <p>Previous scan reports</p>
+
+                </div>
+
+            </a>
+
+            <a href="/dashboard" class="feature">
+
+                <div class="feature-icon">📈</div>
+
+                <div>
+
+                    <h4>Dashboard</h4>
+
+                    <p>Detection analytics</p>
+
+                </div>
+
+            </a>
+
+            {% else %}
+
+            <div class="login-lock">
+
+                <p>
+                    Login to unlock analytics features
+                </p>
+
+            </div>
+
+            {% endif %}
+
+        </section>
+
+    </main>
+
+</div>
+
+</body>
+
+
+</html>
+

@@ -1,0 +1,245 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Analytics Dashboard</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="app-container">
+
+    <!-- =========================
+         NAVBAR
+    ========================== -->
+
+    <header class="topbar">
+
+        <div class="brand-area">
+
+            <div class="logo">
+                📊
+            </div>
+
+            <div>
+
+                <h1 class="brand">
+                    Analytics Dashboard
+                </h1>
+
+                <p class="tagline">
+                    AI detection statistics & insights
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="user-area">
+
+            <a href="/" class="btn outline">
+                Home
+            </a>
+
+            <a href="/history" class="btn outline">
+                History
+            </a>
+
+        </div>
+
+    </header>
+
+    <!-- =========================
+         DASHBOARD GRID
+    ========================== -->
+
+    <main class="dashboard-grid">
+
+        <!-- TOTAL SCANS -->
+
+        <section class="card dashboard-card">
+
+            <div class="dashboard-icon">
+                🔍
+            </div>
+
+            <h3>Total Scans</h3>
+
+            <h2>
+                {{ total_scans }}
+            </h2>
+
+            <p>
+                Total AI detections performed
+            </p>
+
+        </section>
+
+        <!-- SCAM -->
+
+        <section class="card dashboard-card">
+
+            <div class="dashboard-icon scam">
+                ⚠
+            </div>
+
+            <h3>Scam Messages</h3>
+
+            <h2>
+                {{ scam_count }}
+            </h2>
+
+            <p>
+                Scam & phishing detections
+            </p>
+
+        </section>
+
+        <!-- FAKE -->
+
+        <section class="card dashboard-card">
+
+            <div class="dashboard-icon fake">
+                🚫
+            </div>
+
+            <h3>Fake News</h3>
+
+            <h2>
+                {{ fake_count }}
+            </h2>
+
+            <p>
+                Misinformation detections
+            </p>
+
+        </section>
+
+        <!-- REAL -->
+
+        <section class="card dashboard-card">
+
+            <div class="dashboard-icon real">
+                ✅
+            </div>
+
+            <h3>Real News</h3>
+
+            <h2>
+                {{ real_count }}
+            </h2>
+
+            <p>
+                Verified safe content
+            </p>
+
+        </section>
+
+    </main>
+
+    <!-- =========================
+         CHART SECTION
+    ========================== -->
+
+    <section class="card chart-card">
+
+        <div class="chart-header">
+
+            <h2>
+                Detection Distribution
+            </h2>
+
+            <p>
+                AI classification overview
+            </p>
+
+        </div>
+
+        <div class="chart-container">
+
+            <canvas id="myChart"></canvas>
+
+        </div>
+
+    </section>
+
+</div>
+
+<script>
+
+const ctx = document.getElementById('myChart');
+
+new Chart(ctx, {
+
+    type: 'doughnut',
+
+    data: {
+
+        labels: [
+            'Scam Messages',
+            'Fake News',
+            'Real News'
+        ],
+
+        datasets: [{
+
+            data: [
+
+                Number("{{ scam_count }}"),
+                Number("{{ fake_count }}"),
+                Number("{{ real_count }}")
+
+            ],
+
+            borderWidth: 0
+
+        }]
+    },
+
+    options: {
+
+        responsive: true,
+
+        plugins: {
+
+            legend: {
+
+                labels: {
+
+                    color: 'white',
+                    padding: 20,
+                    font: {
+                        size: 14
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+});
+
+</script>
+
+</body>
+
+</html>
